@@ -1,15 +1,13 @@
 package gr.Teacher.Teacherservice.rest;
 
 
+import gr.Teacher.Teacherservice.teacher.Teacher;
 import gr.Teacher.Teacherservice.teacher.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("teacher")
@@ -30,6 +28,19 @@ public class TeacherController {
 
         return new ResponseEntity<>("Teacher created", HttpStatus.OK);
 
+    }
+
+    @GetMapping("find")
+    public ResponseEntity<Teacher> findTeacher(@RequestParam String email, @RequestParam String password) {
+        Teacher teacher;
+        try {
+            teacher = teacherService.findTeacher(email, password);
+        } catch (Exception e) {
+            System.out.println("edw");
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        System.out.println(teacher.getName());
+        return new ResponseEntity<>(teacher, HttpStatus.OK);
     }
 
 }

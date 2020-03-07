@@ -26,6 +26,9 @@ public class Teacher implements Serializable {
     @Column(name = "password")
     private String password;
 
+    public Teacher() {
+    }
+
     public Teacher(String name, String surname, String email, String password) {
         this.id = 0;
         this.name = name;

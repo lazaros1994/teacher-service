@@ -11,23 +11,21 @@ import javax.transaction.Transactional;
 
 public class TeacherService {
 
-
     @Autowired
-    private Dao<Teacher> dao;
+    TeacherDao teacherDao;
 
-    @Autowired
-    public void setDao(Dao<Teacher> daoToSet) {
-        dao = daoToSet;
-        dao.setClazz(Teacher.class);
-    }
+//    @Autowired
+//    public void setDao(Dao<Teacher> daoToSet) {
+//        dao = daoToSet;
+//        dao.setClazz(Teacher.class);
+//    }
 
     public void createTeacher(String name, String surname, String email, String password){
-//        teacherDao.create(name,surname,email,password);
-        System.out.println("edw1");
-        Teacher teacher = new Teacher(name,surname,email,password);
-        System.out.println("edw2");
-        dao.create(teacher);
-        System.out.println("edw3");
+        teacherDao.create(new Teacher(name,surname,email,password));
+    }
+
+    public Teacher findTeacher(String email, String password){
+        return teacherDao.findByEmailAndPassword(email, password);
     }
 
 }
