@@ -1,6 +1,5 @@
 package gr.Teacher.Teacherservice.teacher;
 
-import gr.Teacher.Teacherservice.Dao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
