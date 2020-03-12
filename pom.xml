@@ -8,10 +8,10 @@
 		<version>2.2.4.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>gr.Teacher</groupId>
-	<artifactId>Teacher-service</artifactId>
+	<groupId>gr.teacher</groupId>
+	<artifactId>teacher-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Teacher-service</name>
+	<name>teacher-service</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
