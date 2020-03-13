@@ -1,7 +1,7 @@
-package gr.Teacher.Teacherservice.teacher;
+package gr.teacher.teacherservice.teacher;
 
 
-import gr.Teacher.Teacherservice.Dao;
+import gr.teacher.teacherservice.Dao;
 
 public interface TeacherDao extends Dao<Teacher> {
     Teacher findByEmailAndPassword(String email, String password);

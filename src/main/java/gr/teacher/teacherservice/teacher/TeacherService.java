@@ -1,4 +1,4 @@
-package gr.Teacher.Teacherservice.teacher;
+package gr.teacher.teacherservice.teacher;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

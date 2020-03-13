@@ -1,4 +1,4 @@
-package gr.Teacher.Teacherservice;
+package gr.teacher.teacherservice;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

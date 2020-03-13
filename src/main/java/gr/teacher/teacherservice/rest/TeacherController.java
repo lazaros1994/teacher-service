@@ -1,8 +1,8 @@
-package gr.Teacher.Teacherservice.rest;
+package gr.teacher.teacherservice.rest;
 
 
-import gr.Teacher.Teacherservice.teacher.Teacher;
-import gr.Teacher.Teacherservice.teacher.TeacherService;
+import gr.teacher.teacherservice.teacher.Teacher;
+import gr.teacher.teacherservice.teacher.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

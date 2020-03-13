@@ -1,7 +1,7 @@
-package gr.Teacher.Teacherservice.teacher;
+package gr.teacher.teacherservice.teacher;
 
 
-import gr.Teacher.Teacherservice.JpaDao;
+import gr.teacher.teacherservice.JpaDao;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;

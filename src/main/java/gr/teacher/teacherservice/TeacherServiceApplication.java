@@ -1,4 +1,4 @@
-package gr.Teacher.Teacherservice;
+package gr.teacher.teacherservice;
 
 
 import org.springframework.boot.SpringApplication;

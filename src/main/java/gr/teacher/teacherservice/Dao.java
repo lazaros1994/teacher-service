@@ -1,4 +1,4 @@
-package gr.Teacher.Teacherservice;
+package gr.teacher.teacherservice;
 
 import java.io.Serializable;
 import java.util.List;

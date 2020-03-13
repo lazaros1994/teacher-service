@@ -1,4 +1,4 @@
-package gr.Teacher.Teacherservice.teacher;
+package gr.teacher.teacherservice.teacher;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
