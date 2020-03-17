@@ -22,11 +22,10 @@ public class TeacherController {
         try {
             teacherService.createTeacher(name, surname, email, password);
         } catch (Exception e) {
-            return new ResponseEntity<>("Failed to create new Teacher", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<String>("Error in creating teacher", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-
-        return new ResponseEntity<>("Teacher created", HttpStatus.OK);
+        return new ResponseEntity<String>("Teacher created successfully", HttpStatus.OK);
 
     }
 
@@ -36,7 +35,6 @@ public class TeacherController {
         try {
             teacher = teacherService.findTeacher(email, password);
         } catch (Exception e) {
-            System.out.println("edw");
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         System.out.println(teacher.getName());

@@ -8,7 +8,6 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "teacher")
-
 public class Teacher implements Serializable {
     @Id
     @Column(name = "id")
@@ -25,6 +24,7 @@ public class Teacher implements Serializable {
 
     @Column(name = "password")
     private String password;
+
 
     public Teacher() {
     }
@@ -76,4 +76,5 @@ public class Teacher implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }

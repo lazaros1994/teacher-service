@@ -13,12 +13,6 @@ public class TeacherService {
     @Autowired
     TeacherDao teacherDao;
 
-//    @Autowired
-//    public void setDao(Dao<Teacher> daoToSet) {
-//        dao = daoToSet;
-//        dao.setClazz(Teacher.class);
-//    }
-
     public void createTeacher(String name, String surname, String email, String password){
         teacherDao.create(new Teacher(name,surname,email,password));
     }

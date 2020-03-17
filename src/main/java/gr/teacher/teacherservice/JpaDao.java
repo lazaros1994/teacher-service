@@ -3,6 +3,7 @@ package gr.teacher.teacherservice;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class JpaDao<T extends Serializable> implements Dao<T> {
@@ -21,8 +22,8 @@ public abstract class JpaDao<T extends Serializable> implements Dao<T> {
     }
 
     public List<T> findAll() {
-        return entityManager.createQuery("from " + clazz.getName())
-                .getResultList();
+        List<T> result = entityManager.createQuery("from " + clazz.getSimpleName(), clazz).getResultList();
+        return result == null ? new ArrayList<>() : result;
     }
 
     public void create(T entity) {
