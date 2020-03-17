@@ -18,14 +18,17 @@ public class TeacherController {
 
     @PostMapping("create")
     public ResponseEntity<String> createUser(@RequestParam String name, @RequestParam String surname, @RequestParam String email, @RequestParam String password) {
+        int answer;
 
         try {
-            teacherService.createTeacher(name, surname, email, password);
+            answer = teacherService.createTeacher(name, surname, email, password);
         } catch (Exception e) {
             return new ResponseEntity<String>("Error in creating teacher", HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
-        return new ResponseEntity<String>("Teacher created successfully", HttpStatus.OK);
+        if(answer == 1)
+            return new ResponseEntity<String>("This email is not available", HttpStatus.OK);
+        else
+            return new ResponseEntity<String>("Teacher created successfully", HttpStatus.OK);
 
     }
 

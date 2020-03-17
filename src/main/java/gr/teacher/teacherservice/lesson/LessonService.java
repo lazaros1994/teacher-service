@@ -17,28 +17,36 @@ public class LessonService {
     LessonDao lessonDao;
 
     public int createLesson(Lesson lesson) {
-        float startTime = (float)Integer.parseInt(lesson.getStartHour()) + ((float)Integer.parseInt(lesson.getStartMinute()) / 60);
-        float endTime = (float)Integer.parseInt(lesson.getEndHour()) + ((float)Integer.parseInt(lesson.getEndMinute()) / 60);
+        if (isTimeAvailable(lesson)) {
+            lessonDao.create(lesson);
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
+    Boolean isTimeAvailable(Lesson lesson) {
+        float startTime = (float) Integer.parseInt(lesson.getStartHour()) + ((float) Integer.parseInt(lesson.getStartMinute()) / 60);
+        float endTime = (float) Integer.parseInt(lesson.getEndHour()) + ((float) Integer.parseInt(lesson.getEndMinute()) / 60);
         List<Lesson> lessonList = findAllLessonsByTeacher(lesson.getTeacher());
-        for(Lesson l : lessonList){
-            if(lesson.getDay().equals(l.getDay())) {
-                float tempStartTime =  (float)Integer.parseInt(l.getStartHour()) + ((float) Integer.parseInt(l.getStartMinute()) / 60);
-                float tempEndTime =  (float)Integer.parseInt(l.getEndHour()) + ((float)Integer.parseInt(l.getEndMinute()) / 60);
-                if ((startTime >= tempStartTime && startTime <= tempEndTime) || (endTime >= tempStartTime && endTime <= tempEndTime)
+        for (Lesson l : lessonList) {
+            if (lesson.getDay().equals(l.getDay())) {
+                float tempStartTime = (float) Integer.parseInt(l.getStartHour()) + ((float) Integer.parseInt(l.getStartMinute()) / 60);
+                float tempEndTime = (float) Integer.parseInt(l.getEndHour()) + ((float) Integer.parseInt(l.getEndMinute()) / 60);
+                if ((startTime > tempStartTime && startTime < tempEndTime) || (endTime > tempStartTime && endTime < tempEndTime)
                         || (startTime <= tempStartTime && endTime >= tempEndTime)) {
-                    return 1;
+                    return false;
                 }
             }
         }
-        lessonDao.create(lesson);
-        return 0;
+        return true;
     }
 
-    public List<Lesson> findAllLessonsByTeacher(Teacher teacher){
+    public List<Lesson> findAllLessonsByTeacher(Teacher teacher) {
         List<Lesson> lessonList = lessonDao.findAllLessonsByTeacher(teacher);
 
         Collections.sort(lessonList, new LessonComparator());
-        return  lessonList;
+        return lessonList;
     }
 }
 
