@@ -29,7 +29,7 @@ CREATE TABLE `teacher` (
   `email` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -40,5 +40,22 @@ CREATE TABLE `teacher` (
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2020-03-07 12:25:42
+DROP TABLE IF EXISTS `teacher_has_lesson`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `teacher_has_lesson` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `teacher` int(11) NOT NULL,
+  `student_name` varchar(45) NOT NULL,
+  `student_surname` varchar(45) NOT NULL,
+  `day` varchar(45) NOT NULL,
+  `start_hour` varchar(45) NOT NULL,
+  `start_minute` varchar(45) NOT NULL,
+  `end_hour` varchar(45) NOT NULL,
+  `end_minute` varchar(45) NOT NULL,
+  `course` varchar(45) NOT NULL,
+  `euro_per_hour` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `teacher_fk` (`teacher`) /*!80000 INVISIBLE */,
+  CONSTRAINT `teacher_fk` FOREIGN KEY (`teacher`) REFERENCES `teacher` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
