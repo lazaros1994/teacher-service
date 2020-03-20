@@ -3,6 +3,8 @@ package gr.teacher.teacherservice.rest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import gr.teacher.teacherservice.cancelledLesson.CancelledLesson;
+import gr.teacher.teacherservice.cancelledLesson.CancelledLessonService;
 import gr.teacher.teacherservice.lesson.Lesson;
 import gr.teacher.teacherservice.lesson.LessonService;
 import gr.teacher.teacherservice.teacher.Teacher;
@@ -22,6 +24,9 @@ public class LessonController {
     @Autowired
     private LessonService lessonService;
 
+    @Autowired
+    private CancelledLessonService cancelledLessonService;
+
     @PostMapping("create")
     public ResponseEntity<String> createLesson(@RequestBody Lesson lesson) {
         int response;
@@ -30,7 +35,7 @@ public class LessonController {
         } catch (Exception e) {
             return new ResponseEntity<>("Failed to create new lesson", HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        if(response == 0)
+        if (response == 0)
             return new ResponseEntity<>("Lesson created successfully", HttpStatus.OK);
         else
             return new ResponseEntity<>("This time is not available in your program", HttpStatus.OK);
@@ -54,6 +59,17 @@ public class LessonController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(lessonList, HttpStatus.OK);
+    }
+
+    @PostMapping("cancel")
+    ResponseEntity<String> createCancelledLesson(@RequestBody CancelledLesson cancelledLesson) {
+        try {
+            cancelledLessonService.create(cancelledLesson);
+        } catch (Exception e){
+            return new ResponseEntity<>("Error in creating new Cancelled lesson", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return new ResponseEntity<>("Successfully created new Cancelled lesson", HttpStatus.OK);
     }
 
 }
