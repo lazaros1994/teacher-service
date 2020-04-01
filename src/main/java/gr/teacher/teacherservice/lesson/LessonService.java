@@ -25,12 +25,18 @@ public class LessonService {
         }
     }
 
-    Boolean isTimeAvailable(Lesson lesson) {
+    public Boolean isTimeAvailable(Lesson lesson) {
+        System.out.println("lesson");
         float startTime = (float) Integer.parseInt(lesson.getStartHour()) + ((float) Integer.parseInt(lesson.getStartMinute()) / 60);
         float endTime = (float) Integer.parseInt(lesson.getEndHour()) + ((float) Integer.parseInt(lesson.getEndMinute()) / 60);
         List<Lesson> lessonList = findAllLessonsByTeacher(lesson.getTeacher());
+        System.out.println("mathimata:" + lessonList);
         for (Lesson l : lessonList) {
+            System.out.println("days");
+            System.out.println(lesson.getDay());
+            System.out.println(l.getDay());
             if (lesson.getDay().equals(l.getDay())) {
+                System.out.println("same_day");
                 float tempStartTime = (float) Integer.parseInt(l.getStartHour()) + ((float) Integer.parseInt(l.getStartMinute()) / 60);
                 float tempEndTime = (float) Integer.parseInt(l.getEndHour()) + ((float) Integer.parseInt(l.getEndMinute()) / 60);
                 if ((startTime > tempStartTime && startTime < tempEndTime) || (endTime > tempStartTime && endTime < tempEndTime)

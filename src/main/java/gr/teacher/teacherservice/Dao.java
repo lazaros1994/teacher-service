@@ -6,7 +6,7 @@ import java.util.List;
 public interface Dao <T extends Serializable> {
     public void setClazz( Class<T> clazzToSet );
 
-    T findOne( Long id );
+    T findOne( int id );
 
     List<T> findAll();
 
@@ -14,7 +14,7 @@ public interface Dao <T extends Serializable> {
 
     void update(final T entity);
 
-    void delete(final T entity);
+    void delete(final int Id);
 
 
 }

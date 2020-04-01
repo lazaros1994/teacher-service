@@ -43,7 +43,6 @@ public class LessonController {
 
     @GetMapping("getAll")
     public ResponseEntity<List<Lesson>> getLessons(@RequestParam String teacherString) throws JsonProcessingException {
-        System.out.println(teacherString);
         ObjectMapper mapper = new ObjectMapper();
         Teacher teacher = mapper.readValue(teacherString, new TypeReference<Teacher>() {
             @Override
@@ -70,6 +69,25 @@ public class LessonController {
         }
 
         return new ResponseEntity<>("Successfully created new Cancelled lesson", HttpStatus.OK);
+    }
+
+    @GetMapping("getAllCancelled")
+    ResponseEntity<List<CancelledLesson>> getAllCancelledLessons(@RequestParam String teacherString) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        Teacher teacher = mapper.readValue(teacherString, new TypeReference<Teacher>() {
+            @Override
+            public Type getType() {
+                return super.getType();
+            }
+        });
+        List<CancelledLesson> cancelledLessonList;
+
+        try {
+            cancelledLessonList = cancelledLessonService.getAll(teacher);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(cancelledLessonList, HttpStatus.OK);
     }
 
 }

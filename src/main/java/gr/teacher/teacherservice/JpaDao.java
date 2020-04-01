@@ -8,7 +8,7 @@ import java.util.List;
 
 public abstract class JpaDao<T extends Serializable> implements Dao<T> {
 
-    private Class<T> clazz;
+    protected Class<T> clazz;
 
     @PersistenceContext
     EntityManager entityManager;
@@ -17,8 +17,9 @@ public abstract class JpaDao<T extends Serializable> implements Dao<T> {
         this.clazz = clazzToSet;
     }
 
-    public T findOne(Long id) {
-        return entityManager.find(clazz, id);
+    public T findOne(int id) {
+        T entity = entityManager.find(clazz, id);
+        return entity;
     }
 
     public List<T> findAll() {
@@ -34,7 +35,10 @@ public abstract class JpaDao<T extends Serializable> implements Dao<T> {
         entityManager.merge(entity);
     }
 
-    public void delete(T entity) {
+    public void delete(int Id) {
+        System.out.println("paei na to vrei");
+        T entity = findOne(Id);
+        System.out.println("to id einai "+Id);
         entityManager.remove(entity);
     }
 }

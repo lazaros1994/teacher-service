@@ -27,7 +27,7 @@ public class ExtraLesson implements Serializable {
     private int year;
 
     @Column(name = "month")
-    private String month;
+    private int month;
 
     @Column(name = "day")
     private int day;
@@ -90,11 +90,11 @@ public class ExtraLesson implements Serializable {
         this.year = year;
     }
 
-    public String getMonth() {
+    public int getMonth() {
         return month;
     }
 
-    public void setMonth(String month) {
+    public void setMonth(int month) {
         this.month = month;
     }
 
