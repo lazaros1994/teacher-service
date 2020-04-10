@@ -26,7 +26,6 @@ public class ExtraLessonController {
 
     @PostMapping("create")
     public ResponseEntity<String> createExtraLesson(@RequestBody ExtraLesson extraLesson) {
-        System.out.println("extra controller");
         int response;
         try {
             response = extraLessonService.create(extraLesson);
@@ -68,9 +67,6 @@ public class ExtraLessonController {
                 return super.getType();
             }
         });
-        System.out.println(extraLesson.getId());
-        System.out.println(extraLesson.getCourse());
-        System.out.println("ok");
         try {
             extraLessonService.delete(extraLesson);
         } catch (Exception e) {

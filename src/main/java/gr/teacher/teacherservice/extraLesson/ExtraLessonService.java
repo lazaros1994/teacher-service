@@ -79,20 +79,15 @@ public class ExtraLessonService {
         lesson.setStudentName(extraLesson.getStudentName());
         lesson.setStudentSurname(extraLesson.getStudentSurname());
         lesson.setTeacher(extraLesson.getTeacher());
-        System.out.println(lesson);
         return lesson;
     }
 
     public Boolean isTimeAvailableForLessons(ExtraLesson extraLesson) {
-        System.out.println("lesson");
         float startTime = (float) Integer.parseInt(extraLesson.getStartHour()) + ((float) Integer.parseInt(extraLesson.getStartMinute()) / 60);
         float endTime = (float) Integer.parseInt(extraLesson.getEndHour()) + ((float) Integer.parseInt(extraLesson.getEndMinute()) / 60);
         List<Lesson> lessonList = lessonService.findAllLessonsByTeacher(extraLesson.getTeacher());
         List<CancelledLesson> cancelledLessonList = cancelledLessonService.getAll(extraLesson.getTeacher());
-        System.out.println("akurwmena mathimata:" + cancelledLessonList);
         for (Lesson l : lessonList) {
-            System.out.println(extraLesson.getDay());
-            System.out.println(l.getDay());
             Date date = new Date(extraLesson.getYear(), extraLesson.getMonth(), extraLesson.getDay() -1);
             SimpleDateFormat simpleDateformat = new SimpleDateFormat("E", Locale.ENGLISH); // the day of the week abbreviated
             if (simpleDateformat.format(date).equals(l.getDay())) {

@@ -2,6 +2,7 @@ package gr.teacher.teacherservice.cancelledLesson;
 
 import gr.teacher.teacherservice.JpaDao;
 import gr.teacher.teacherservice.extraLesson.ExtraLesson;
+import gr.teacher.teacherservice.lesson.Lesson;
 import gr.teacher.teacherservice.teacher.Teacher;
 import org.springframework.stereotype.Repository;
 
@@ -20,4 +21,12 @@ public class CancelledLessonDaoImpl extends JpaDao<CancelledLesson> implements C
         return em.createQuery("select c from CancelledLesson c where c.lesson.teacher =: teacher", CancelledLesson.class)
                 .setParameter("teacher", teacher)
                 .getResultList();
-    }}
+    }
+
+    public List<CancelledLesson> getAllCancelledByLesson(Lesson lesson){
+        return em.createQuery("select c from CancelledLesson c where c.lesson =: lesson", CancelledLesson.class)
+                .setParameter("lesson", lesson)
+                .getResultList();
+    }
+
+}
