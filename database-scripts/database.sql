@@ -20,7 +20,7 @@ CREATE TABLE `teacher` (
   `email` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Table structure for table `teacher_has_lesson`
@@ -44,8 +44,7 @@ CREATE TABLE `teacher_has_lesson` (
   PRIMARY KEY (`id`),
   KEY `teach_fk_idx` (`teacher`),
   CONSTRAINT `teach_fk` FOREIGN KEY (`teacher`) REFERENCES `teacher` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 --
 -- Table structure for table `teacher_has_extra_lesson`
 --
@@ -59,7 +58,7 @@ CREATE TABLE `teacher_has_extra_lesson` (
   `student_name` varchar(45) NOT NULL,
   `student_surname` varchar(45) NOT NULL,
   `year` int(11) NOT NULL,
-  `month` varchar(45) NOT NULL,
+  `month` int(11) NOT NULL,
   `day` int(11) NOT NULL,
   `start_hour` varchar(45) NOT NULL,
   `start_minute` varchar(45) NOT NULL,
@@ -70,8 +69,7 @@ CREATE TABLE `teacher_has_extra_lesson` (
   PRIMARY KEY (`id`),
   KEY `teacher_fk_extra_idx` (`teacher`),
   CONSTRAINT `teacher_fk_extra` FOREIGN KEY (`teacher`) REFERENCES `teacher` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Table structure for table `lesson_is_cancelled`
@@ -89,7 +87,7 @@ CREATE TABLE `lesson_is_cancelled` (
   PRIMARY KEY (`id`),
   KEY `cl_fk_idx` (`lesson`),
   CONSTRAINT `cl_fk` FOREIGN KEY (`lesson`) REFERENCES `teacher_has_lesson` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
 --
