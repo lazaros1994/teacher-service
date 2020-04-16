@@ -65,7 +65,7 @@ public class LessonController {
     ResponseEntity<String> createCancelledLesson(@RequestBody CancelledLesson cancelledLesson) {
         try {
             cancelledLessonService.create(cancelledLesson);
-        } catch (Exception e){
+        } catch (Exception e) {
             return new ResponseEntity<>("Error in creating new Cancelled lesson", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
@@ -92,7 +92,8 @@ public class LessonController {
     }
 
     @DeleteMapping("deleteCancelled")
-    public ResponseEntity<CancelledLesson> deleteExtraLesson(@RequestParam String lessonString) throws JsonProcessingException {
+    public ResponseEntity<CancelledLesson> deleteCancelledLesson(@RequestParam String lessonString) throws JsonProcessingException {
+        System.out.println("deleted enter");
         ObjectMapper mapper = new ObjectMapper();
         CancelledLesson cancelledLesson = mapper.readValue(lessonString, new TypeReference<CancelledLesson>() {
             @Override
@@ -100,13 +101,19 @@ public class LessonController {
                 return super.getType();
             }
         });
-
+        Boolean answer;
         try {
-            cancelledLessonService.delete(cancelledLesson);
+            answer = cancelledLessonService.delete(cancelledLesson);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<>(cancelledLesson, HttpStatus.OK);
+        if (answer) {
+            return new ResponseEntity<>(cancelledLesson, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.OK);
+
+        }
+
     }
 
     @DeleteMapping("delete")
@@ -120,7 +127,7 @@ public class LessonController {
         });
         try {
             List<CancelledLesson> cancelledLessonList = cancelledLessonService.getAllCancelledByLesson(lesson);
-            for(CancelledLesson cancelledLesson: cancelledLessonList){
+            for (CancelledLesson cancelledLesson : cancelledLessonList) {
                 cancelledLessonService.delete(cancelledLesson);
             }
             lessonService.delete(lesson);

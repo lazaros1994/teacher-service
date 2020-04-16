@@ -36,9 +36,7 @@ public abstract class JpaDao<T extends Serializable> implements Dao<T> {
     }
 
     public void delete(int Id) {
-        System.out.println("paei na to vrei");
         T entity = findOne(Id);
-        System.out.println("to id einai "+Id);
         entityManager.remove(entity);
     }
 }

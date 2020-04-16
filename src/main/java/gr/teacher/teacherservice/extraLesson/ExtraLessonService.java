@@ -41,7 +41,7 @@ public class ExtraLessonService {
         extraLessonDao.delete(extraLesson.getId());
     }
 
-    Boolean isTimeAvailable(ExtraLesson extraLesson) {
+    public Boolean isTimeAvailable(ExtraLesson extraLesson) {
         float startTime = (float) Integer.parseInt(extraLesson.getStartHour()) + ((float) Integer.parseInt(extraLesson.getStartMinute()) / 60);
         float endTime = (float) Integer.parseInt(extraLesson.getEndHour()) + ((float) Integer.parseInt(extraLesson.getEndMinute()) / 60);
         List<ExtraLesson> extraLessonList = findAllExtraLessonsByTeacher(extraLesson.getTeacher());

@@ -6,9 +6,13 @@
 
 
  SET NAMES utf8 ;
---
--- Table structure for table `teacher`
---
+
+DROP SCHEMA IF EXISTS `teachers-db`;
+
+CREATE SCHEMA IF NOT EXISTS `teachers-db`;
+
+USE `teachers-db`;
+
 
 DROP TABLE IF EXISTS `teacher`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -82,7 +86,7 @@ CREATE TABLE `lesson_is_cancelled` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `lesson` int(11) NOT NULL,
   `year` int(11) NOT NULL,
-  `month` varchar(45) NOT NULL,
+  `month` int(11) NOT NULL,
   `day` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `cl_fk_idx` (`lesson`),
@@ -104,3 +108,4 @@ CREATE TABLE `extra_lesson_is_cancelled` (
   KEY `elc_fk_idx` (`extra_lesson`),
   CONSTRAINT `elc_fk` FOREIGN KEY (`extra_lesson`) REFERENCES `teacher_has_extra_lesson` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
