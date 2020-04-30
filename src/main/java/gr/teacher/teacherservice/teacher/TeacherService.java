@@ -33,7 +33,6 @@ public class TeacherService {
     CancelledLessonDao cancelledLessonDao;
 
     public int createTeacher(String name, String surname, String email, String password) {
-        System.out.println(isEmailAvailable(email));
         if (!isEmailAvailable(email))
             return 1;
         teacherDao.create(new Teacher(name, surname, email, password));
@@ -46,6 +45,10 @@ public class TeacherService {
 
     public Teacher findTeacher(String email, String password) {
         return teacherDao.findByEmailAndPassword(email, password);
+    }
+
+    public Teacher findTeacherByEmail(String email) {
+        return teacherDao.findByEmail(email);
     }
 
     public Teacher updateTeacher(Teacher teacher) {
@@ -82,14 +85,17 @@ public class TeacherService {
             dateList.add(c.getTime());
         }
         for (Date date : dateList) {                                     //gia kathe mera tou mhna
-            SimpleDateFormat formatter = new SimpleDateFormat("EEE");
+            SimpleDateFormat formatter = new SimpleDateFormat("EEE", Locale.ENGLISH);
 
             for (Lesson lesson : lessonList) {
+
                 if (lesson.getDay().equals(formatter.format(date))) {
+
                     hours = hours + (((float) Integer.parseInt(lesson.getEndHour()) + ((float) Integer.parseInt(lesson.getEndMinute()) / 60)) -
                             ((float) Integer.parseInt(lesson.getStartHour()) + ((float) Integer.parseInt(lesson.getStartMinute()) / 60)));
                     euro = euro + lesson.getEuroPerHour() * (((float) Integer.parseInt(lesson.getEndHour()) + ((float) Integer.parseInt(lesson.getEndMinute()) / 60)) -
                             ((float) Integer.parseInt(lesson.getStartHour()) + ((float) Integer.parseInt(lesson.getStartMinute()) / 60)));
+
                     for (CancelledLesson cancelledLesson : cancelledLessonList) {
 
                         if (lesson.getId() == cancelledLesson.getLesson().getId() && cancelledLesson.getYear() == (1900 + date.getYear()) && cancelledLesson.getMonth() == date.getMonth()
@@ -113,9 +119,16 @@ public class TeacherService {
             }
         }
         DecimalFormat df = new DecimalFormat("#.##");
-        hours = Float.parseFloat(df.format(hours));
-        euro = Float.parseFloat(df.format(euro));
-        euroPerHour = Float.parseFloat(df.format(euro / hours));
+        hours = (float) Math.floor(hours * 100) / 100;
+        euro = (float) Math.floor(euro * 100) / 100;
+
+        if (hours == 0) {
+            euroPerHour = 0;
+        } else {
+            euroPerHour = euro / hours;
+        }
+        euroPerHour = (float) Math.floor(euroPerHour * 100) / 100;
+
         hoursAndEuroThisMonth[0] = hours;
         hoursAndEuroThisMonth[1] = euro;
         hoursAndEuroThisMonth[2] = euroPerHour;
@@ -125,17 +138,3 @@ public class TeacherService {
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

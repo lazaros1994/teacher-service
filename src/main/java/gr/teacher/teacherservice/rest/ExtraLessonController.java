@@ -35,7 +35,7 @@ public class ExtraLessonController {
         if (response == 0)
             return new ResponseEntity<>("ExtraLesson created successfully", HttpStatus.OK);
         else
-            return new ResponseEntity<>("This time is not available in your program(Extra Lesson)", HttpStatus.OK);
+            return new ResponseEntity<>("These hours are not available", HttpStatus.OK);
 
     }
 

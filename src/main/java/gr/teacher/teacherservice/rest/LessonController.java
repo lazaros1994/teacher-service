@@ -39,7 +39,7 @@ public class LessonController {
         if (response == 0)
             return new ResponseEntity<>("Lesson created successfully", HttpStatus.OK);
         else
-            return new ResponseEntity<>("This time is not available in your program", HttpStatus.OK);
+            return new ResponseEntity<>("These hours are not available", HttpStatus.OK);
     }
 
     @GetMapping("getAll")

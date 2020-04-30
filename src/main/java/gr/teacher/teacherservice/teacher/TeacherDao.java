@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 public interface TeacherDao extends Dao<Teacher> {
     Teacher findByEmailAndPassword(String email, String password);
     Boolean isEmailAvailable(String email);
+    Teacher findByEmail(String email);
 }

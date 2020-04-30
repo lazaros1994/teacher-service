@@ -17,11 +17,10 @@ public class TeacherDaoImpl extends JpaDao<Teacher> implements TeacherDao {
 
     public Teacher findByEmailAndPassword(String email, String password){
 
-        Teacher teacher = em.createQuery("select t from Teacher t where t.email=:email and t.password=:password ", Teacher.class)
+        return em.createQuery("select t from Teacher t where t.email=:email and t.password=:password ", Teacher.class)
                 .setParameter("email", email)
                 .setParameter("password", password)
                 .getSingleResult();
-        return teacher;
 
     }
 
@@ -31,5 +30,11 @@ public class TeacherDaoImpl extends JpaDao<Teacher> implements TeacherDao {
                 .getResultList();
 
         return teacherList.isEmpty();
+    }
+
+    public Teacher findByEmail(String email) {
+        return em.createQuery("select t from Teacher t where t.email=:email ", Teacher.class)
+                .setParameter("email", email)
+                .getSingleResult();
     }
 }

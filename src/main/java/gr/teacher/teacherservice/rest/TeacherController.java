@@ -1,9 +1,9 @@
 package gr.teacher.teacherservice.rest;
 
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import gr.teacher.teacherservice.mail.MailService;
 import gr.teacher.teacherservice.teacher.Teacher;
 import gr.teacher.teacherservice.teacher.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
 import java.lang.reflect.Type;
 
 @Controller
@@ -20,6 +19,9 @@ public class TeacherController {
 
     @Autowired
     private TeacherService teacherService;
+
+    @Autowired
+    private MailService mailService;
 
     @PostMapping("create")
     public ResponseEntity<String> createUser(@RequestParam String name, @RequestParam String surname, @RequestParam String email, @RequestParam String password) {
@@ -45,7 +47,6 @@ public class TeacherController {
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        System.out.println(teacher.getName());
         return new ResponseEntity<>(teacher, HttpStatus.OK);
     }
 
@@ -58,21 +59,18 @@ public class TeacherController {
                 return super.getType();
             }
         });
-        float[] hoursAndEuroThisMonth = new float[2];
+        float[] hoursAndEuroThisMonth = new float[3];
 
         try {
             hoursAndEuroThisMonth = teacherService.getHoursAndEuroThisMonth(teacher);
         } catch (Exception e) {
-
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
-
         return new ResponseEntity<>(hoursAndEuroThisMonth, HttpStatus.OK);
     }
 
     @PutMapping("updatePersonalInfo")
     public ResponseEntity<Teacher> updatePersonalInfo(@RequestBody Teacher teacher) {
-        System.out.println("mpika");
         try {
             teacher = teacherService.updateTeacher(teacher);
         } catch (Exception e) {
@@ -80,6 +78,16 @@ public class TeacherController {
         }
         return new ResponseEntity<>(teacher, HttpStatus.OK);
 
+    }
+
+    @GetMapping("forgotPassword")
+    public ResponseEntity<Teacher> forgotPassword(@RequestParam String email){
+        try{
+            mailService.sendSimpleMessage(email);
+        } catch (Exception e){
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(null,HttpStatus.OK);
     }
 
 }
